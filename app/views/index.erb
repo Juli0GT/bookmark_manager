@@ -1,5 +1,6 @@
 <% @links.each  do |x| %>
   <p><a href="<%= x.url %>"> <%= x.title %> </a></p>
+  <p>Tags: <%= x.print_tags %></p>
 <% end %>
 
 <button type="button"><a href="/add">Add new bookmark</a></button>
