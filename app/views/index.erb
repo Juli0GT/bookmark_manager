@@ -1,3 +1,5 @@
 <% @links.each  do |x| %>
-      <a href="<%= x.url %>"> <%= x.title %> </a>
-      <% end %>
+  <p><a href="<%= x.url %>"> <%= x.title %> </a></p>
+<% end %>
+
+<button type="button"><a href="/add">Add new bookmark</a></button>
