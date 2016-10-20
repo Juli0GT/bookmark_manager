@@ -2,6 +2,9 @@ require 'spec_helper'
 
 feature 'viewing links' do
   scenario 'viewing links on the homepage' do
+
+    Link.create(title: 'Bookmark1', url: 'www.bookmark.com' )
+
     visit '/'
 
     expect(page).to have_content('Bookmark1')
