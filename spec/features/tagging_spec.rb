@@ -9,4 +9,15 @@ feature "tagging links" do
     click_button "Add"
     expect(page).to have_content("Tags: #beer")
   end
+
+  scenario "can filter links by tag" do
+    LinkTag.create(:link => Link.create(title: "Google", url: "http://google.com"), :tag => Tag.create(name: "search"))
+    LinkTag.create(:link => Link.create(title: "Yahoo", url: "http://yahoo.com"), :tag => Tag.create(name: "search"))
+    LinkTag.create(:link => Link.create(title: "Makers", url: "http://makersacademy.com"), :tag => Tag.create(name: "coding"))
+    visit "/"
+    fill_in "filter_tag", with: "search"
+    click_button "Filter tag"
+    expect(page).to have_content("Google")
+    expect(page).not_to have_content("Makers")
+  end
 end

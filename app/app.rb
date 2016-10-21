@@ -12,13 +12,19 @@ class BookmarkManager < Sinatra::Base
 
   post "/" do
     link = Link.create(title: params[:bookmark_title] , url: params[:bookmark_url])
-    tag = Tag.create(name: params[:bookmark_tag])
+    tag = Tag.first_or_create(name: params[:bookmark_tag])
     LinkTag.create(:link => link, :tag => tag)
     redirect "/"
   end
 
   get "/add" do
     erb :add
+  end
+
+  post "/tag" do
+    tag = Tag.first(name: params[:filter_tag])
+    @links = tag.links
+    erb :index
   end
 
 

@@ -3,7 +3,7 @@ class Link
 
   property :id,         Serial
   property :title,      String
-  property :url,        Text
+  property :url,        String
 
   has n, :tags, :through => Resource
 
