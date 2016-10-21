@@ -5,20 +5,25 @@ require_relative 'data_mapper_setup'
 
 class BookmarkManager < Sinatra::Base
 
+enable :sessions
   get '/' do
-    @links = Link.all
     erb(:index)
   end
 
-  post "/" do
-    link = Link.create(title: params[:bookmark_title] , url: params[:bookmark_url])
-    tags = params[:bookmark_tag].split(" ")
-    tags.each do |each_tag|
-      new_tag = "#" + each_tag
-      tag = Tag.first_or_create(name: new_tag)
-        LinkTag.create(:link => link, :tag => tag)
-    end
-    redirect "/"
+  post '/new_user' do
+    user = User.create(email: params[:email], password: params[:pasword])
+    User.user_count
+    session[:email] = user.email
+    @password = params[:pasword]
+    redirect '/links'
+  end
+
+  get '/links' do
+
+    @email = session[:email]
+    # p @email
+    @links = Link.all
+    erb(:links)
   end
 
   get "/add" do
@@ -28,8 +33,20 @@ class BookmarkManager < Sinatra::Base
   post "/tag" do
     tag = Tag.first(name: params[:filter_tag])
     @links = tag.links
-    erb :index
+    erb :links
   end
+
+  post "/links" do
+    link = Link.create(title: params[:bookmark_title] , url: params[:bookmark_url])
+    tags = params[:bookmark_tag].split(" ")
+    tags.each do |each_tag|
+      new_tag = "#" + each_tag
+      tag = Tag.first_or_create(name: new_tag)
+        LinkTag.create(:link => link, :tag => tag)
+    end
+    redirect "/links"
+  end
+
 
 
   # start the server if ruby file executed directly

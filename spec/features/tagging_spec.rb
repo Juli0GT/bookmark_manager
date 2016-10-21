@@ -14,7 +14,7 @@ feature "tagging links" do
     LinkTag.create(:link => Link.create(title: "Google", url: "http://google.com"), :tag => Tag.create(name: "search"))
     LinkTag.create(:link => Link.create(title: "Yahoo", url: "http://yahoo.com"), :tag => Tag.create(name: "search"))
     LinkTag.create(:link => Link.create(title: "Makers", url: "http://makersacademy.com"), :tag => Tag.create(name: "coding"))
-    visit "/"
+    visit "/links"
     fill_in "filter_tag", with: "search"
     click_button "Filter tag"
     expect(page).to have_content("Google")

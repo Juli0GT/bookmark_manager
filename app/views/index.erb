@@ -1,10 +1,5 @@
-<% @links.each  do |x| %>
-  <p><a href="<%= x.url %>"> <%= x.title %> </a></p>
-  <p>Tags: <%= x.print_tags %></p>
-<% end %>
-
-<button type="button"><a href="/add">Add new bookmark</a></button>
-<form action="/tag" method="post">
-  Filter by tag: <input type="text" name="filter_tag" placeholder="#cake"/>
-  <button type="submit">Filter tag</button>
+<form action="/new_user" method="post">
+  Email: <input type="text" name="email"/>
+  Password: <input type="text" name="password"/>
+  <button type="submit">Sign in</button>
 </form>

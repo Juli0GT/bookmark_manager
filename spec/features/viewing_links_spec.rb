@@ -5,7 +5,7 @@ feature 'viewing links' do
 
     Link.create(title: 'Bookmark1', url: 'www.bookmark.com' )
 
-    visit '/'
+    visit '/links'
 
     expect(page).to have_content('Bookmark1')
   end
